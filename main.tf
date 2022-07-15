@@ -1,38 +1,4 @@
-#-----Create-EC2/main.tf
-
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.22.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = "us-east-1"
-  default_tags {
-    tags = {
-      Environment = "Test"
-      Name        = "create-ec2"
-    }
-  }
-}
-
-
-output "vpc_resource_level_tags" {
-  value = aws_vpc.example.tags
-}
-
-output "vpc_all_tags" {
-  value = aws_vpc.example.tags_all
-}
-
-output "vpc_public_IPv4" {
-  value = aws_vpc.example.tags_all
-}
-
-
+#-----root/main.tf
 
 resource "aws_vpc" "example" {
   cidr_block = "10.0.0.0/16"
@@ -93,11 +59,10 @@ resource "aws_security_group" "http" {
 
 
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
@@ -107,14 +72,14 @@ resource "aws_security_group" "http" {
 
 
 ####### EC2
+module "compute" {
+  source          = "./modules/compute"
+  instance_count  = 1
+  instance_type   = "t2.micro"
+  public_sg       = [aws_security_group.http.id]
+  key_name        = "devin-key"
+  public_key_path = "/Users/devin/.ssh/devin-key.pub"
+  public_subnets  = aws_subnet.example.id
+  ami             = "ami-0cff7528ff583bf9a"
 
-resource "aws_instance" "example" {
-  ami                         = "ami-0cff7528ff583bf9a"
-  subnet_id                   = aws_subnet.example.id
-  instance_type               = "t2.micro"
-  vpc_security_group_ids      = [aws_security_group.http.id]
-  associate_public_ip_address = true #needed to give it a public IPV4
-  key_name                    = "Mac"
 }
-
-
