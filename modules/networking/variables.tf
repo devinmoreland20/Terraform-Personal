@@ -21,7 +21,3 @@ variable "public_cidrs" {
 variable "private_cidrs" {
   type = list(any)
 }
-
-variable "vpc_id" {
-
-}

@@ -1,10 +1,30 @@
 # --- networking/main.tf
+resource "aws_vpc" "example" {
+  cidr_block = var.vpc_cidr
+}
+
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.example.id
+
+  tags = {
+    Name = "main"
+  }
+}
+resource "aws_subnet" "example" {
+  vpc_id     = aws_vpc.example.id
+  cidr_block = "10.0.1.0/24"
+
+  tags = {
+    Name = "Main"
+  }
+}
+
 
 resource "aws_security_group" "public" {
   for_each    = var.security_groups
   name        = each.value.name
   description = each.value.description
-  vpc_id      = var.vpc_id
+  vpc_id      = aws_vpc.example.id
   dynamic "ingress" {
     for_each = each.value.ingress
     content {
