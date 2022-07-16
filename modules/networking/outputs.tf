@@ -8,5 +8,10 @@ output "public" {
 }
 
 output "aws_subnet" {
-  value = aws_subnet.example.id
+  value = aws_subnet.example.*.id
+}
+
+output "public_route" {
+  value = aws_route_table.public_rt.id
+
 }

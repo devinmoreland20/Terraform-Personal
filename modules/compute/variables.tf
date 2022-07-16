@@ -14,6 +14,14 @@ variable "public_subnets" {}
 
 variable "ami" {}
 
+variable "tg_port" {}
 
+variable "lb_target_group_arn" {
+
+}
+
+variable "user_data" {
+
+}
 
 
