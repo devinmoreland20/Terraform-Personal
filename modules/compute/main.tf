@@ -7,7 +7,7 @@ resource "aws_key_pair" "devin-key" {
 
 resource "aws_instance" "example" {
   count                       = var.instance_count
-  ami                         = "ami-0cff7528ff583bf9a"
+  ami                         = var.ami
   subnet_id                   = var.public_subnets[count.index]
   instance_type               = var.instance_type
   vpc_security_group_ids      = [var.public_sg]

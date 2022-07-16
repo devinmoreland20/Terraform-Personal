@@ -33,7 +33,7 @@ resource "aws_subnet" "example" {
 
 
 resource "aws_subnet" "private_sn" {
-  count                   = 2
+  count                   = var.private_sn_count
   vpc_id                  = aws_vpc.example.id
   cidr_block              = var.private_cidrs[count.index]
   map_public_ip_on_launch = true

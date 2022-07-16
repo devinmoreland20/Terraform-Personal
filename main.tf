@@ -3,13 +3,13 @@
 module "compute" {
   source              = "./modules/compute"
   instance_count      = 2
-  instance_type       = "t2.micro"
+  instance_type       = var.instance_type
   public_sg           = module.networking.public
-  key_name            = "devin-key"
-  public_key_path     = "/Users/devin/.ssh/devin-key.pub"
+  key_name            = var.key_name
+  public_key_path     = var.public_key_path
   public_subnets      = module.networking.aws_subnet
   user_data           = file("modules/compute/userdata.tpl")
-  ami                 = "ami-0cff7528ff583bf9a"
+  ami                 = var.ami
   tg_port             = 80
   lb_target_group_arn = module.loadbalancing.lb_target_group_arn
 }
