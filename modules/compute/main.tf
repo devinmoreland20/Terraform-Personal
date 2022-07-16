@@ -1,11 +1,9 @@
 #### ---- compute/main.tf
 
-
 resource "aws_key_pair" "devin-key" {
   key_name   = var.key_name
   public_key = file(var.public_key_path)
 }
-
 
 resource "aws_instance" "example" {
   ami                         = "ami-0cff7528ff583bf9a"

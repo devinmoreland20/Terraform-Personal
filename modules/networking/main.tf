@@ -10,6 +10,7 @@ resource "aws_internet_gateway" "gw" {
     Name = "main"
   }
 }
+
 resource "aws_subnet" "example" {
   vpc_id     = aws_vpc.example.id
   cidr_block = "10.0.1.0/24"
@@ -18,7 +19,6 @@ resource "aws_subnet" "example" {
     Name = "Main"
   }
 }
-
 
 resource "aws_security_group" "public" {
   for_each    = var.security_groups

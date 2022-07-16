@@ -9,8 +9,6 @@ module "compute" {
   public_key_path = "/Users/devin/.ssh/devin-key.pub"
   public_subnets  = module.networking.aws_subnet
   ami             = "ami-0cff7528ff583bf9a"
-  #security_groups = local.security_groups
-
 }
 
 module "networking" {
