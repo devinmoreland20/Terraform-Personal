@@ -1,5 +1,11 @@
 # ---- compute/outputs
 
-# output "vpc_public_IPv4" {
-#   value = aws_instance.example[count.index].public_ip #prints out the public IPv4
+# output "instance" {
+#   value     = aws_instance.example[*]
+#   sensitive = true
 # }
+
+
+output "instance_public_ip" {
+  value = join(",", aws_instance.example.*.public_ip)
+}

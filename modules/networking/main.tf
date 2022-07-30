@@ -58,11 +58,10 @@ resource "aws_security_group" "public" {
     }
   }
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
@@ -112,4 +111,3 @@ resource "aws_route_table_association" "b" {
   subnet_id      = aws_subnet.private_sn[count.index].id
   route_table_id = aws_route_table.private_route_table.id
 }
-
