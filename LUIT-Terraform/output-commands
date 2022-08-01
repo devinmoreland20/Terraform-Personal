@@ -1,0 +1,12 @@
+terraform output  - will output all the outputs 
+
+terraform output "output name" will output indivual output 
+
+terraform output -raw    - will output text without ""
+
+curl $(terraform output -raw lb_url)   ---Use the lb_url output value with the -raw flag to cURL the load balancer and verify the response.
+
+
+You can make outputs sensitive by setting "sensitive = true" in the output block
+
+terraform output -json  -  will return th eoutput respone in JSON
