@@ -10,10 +10,12 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-west-2"
+  alias  = "us-east-1" #this is a alias that you can use to reference the provider
+  region = "us-east-1"
 }
 
 resource "aws_instance" "app_server" {
+  provider      = aws.us-east-1 # this is how to reference a provider
   ami           = "ami-830c94e3"
   instance_type = "t2.micro"
 

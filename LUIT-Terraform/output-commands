@@ -9,4 +9,4 @@ curl $(terraform output -raw lb_url)   ---Use the lb_url output value with the -
 
 You can make outputs sensitive by setting "sensitive = true" in the output block
 
-terraform output -json  -  will return th eoutput respone in JSON
+terraform output -json  -  will return the output respone in JSON
