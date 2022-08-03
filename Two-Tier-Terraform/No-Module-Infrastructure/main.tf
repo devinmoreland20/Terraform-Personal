@@ -222,7 +222,7 @@ resource "aws_security_group" "public_http_sg" {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
-    security_groups = [aws_security_group.public_ALB.id] #since we are only allowing traffic from the SG we must specifiy name instead of CIDR
+    security_groups = [aws_security_group.public_ALB.id]
   }
 
   egress {
@@ -272,26 +272,25 @@ resource "aws_instance" "project_front_end_1a" {
   subnet_id                   = aws_subnet.public_project_subnet_1a.id
   associate_public_ip_address = true
   user_data                   = file("./userdata.tpl")
-  #key_name               = aws_key_pair.key_pair.key_name #had to specifiy the name
-  #public_key_path        = "/Users/devin/.ssh/tfkey.pub"
+  key_name                    = aws_key_pair.key_pair.key_name #had to specifiy the name
+
   tags = {
     Name = "project"
   }
 }
 
 
-# resource "aws_key_pair" "key_pair" {
-#   key_name   = "tfkey.pub"
-#   public_key = "/Users/devin/.ssh/tfkey.pub" #The pub mean it is a public key pair and not our private one
-# }
+resource "aws_key_pair" "key_pair" {
+  key_name   = "tfkey.pub"
+  public_key = file("/Users/devin/.ssh/tfkey.pub") #The pub mean it is a public key pair and not our private one,                           
+}                                                  #This is the path to our key on our machine
 
 resource "aws_instance" "project_front_end_1b" {
-  ami                    = "ami-090fa75af13c156b4"
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.public_http_sg.id]
-  #key_name               = aws_key_pair.key_pair.key_name
-  subnet_id = aws_subnet.public_project_subnet_1b.id
-  #public_key_path        = "/Users/devin/.ssh/tfkey.pub"
+  ami                         = "ami-090fa75af13c156b4"
+  instance_type               = "t2.micro"
+  vpc_security_group_ids      = [aws_security_group.public_http_sg.id]
+  key_name                    = aws_key_pair.key_pair.key_name
+  subnet_id                   = aws_subnet.public_project_subnet_1b.id
   user_data                   = file("./userdata.tpl")
   associate_public_ip_address = true
 
