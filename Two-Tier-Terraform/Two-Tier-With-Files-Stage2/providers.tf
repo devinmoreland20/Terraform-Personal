@@ -6,12 +6,6 @@ terraform {
       version = "4.24.0"
     }
   }
-  cloud {
-    organization = "Flintlocks-Terraform"
-    workspaces {
-      name = "LUIT-Project"
-    }
-  }
 }
 
 
