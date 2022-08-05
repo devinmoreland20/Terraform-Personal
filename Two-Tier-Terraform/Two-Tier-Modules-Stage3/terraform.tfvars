@@ -1,5 +1,5 @@
 # ----- root/terraform.tfvars
 
-local_IP = "23.226.175.132/32"
+local_IP = "Your local IP"
 
 rds_password = "foobar0223"
