@@ -22,7 +22,8 @@ variable "public_access_cidr" {
 }
 
 variable "local_IP" {
-  type = string
+  type      = string
+  sensitive = true
 }
 
 variable "rds_engine" {
@@ -42,7 +43,8 @@ variable "rds_username" {
 }
 
 variable "rds_password" {
-  type = string
+  type      = string
+  sensitive = true
 }
 
 variable "rds_parameter_group_name" {
