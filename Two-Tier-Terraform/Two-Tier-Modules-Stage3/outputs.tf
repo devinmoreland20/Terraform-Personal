@@ -19,3 +19,8 @@ output "privateIP" {
   description = "private IP of EC2 instance"
   value       = module.compute.instance_private_ip
 }
+
+output "database_endpoint" {
+  description = "endpoint of database"
+  value       = module.database.database_endpoint
+}

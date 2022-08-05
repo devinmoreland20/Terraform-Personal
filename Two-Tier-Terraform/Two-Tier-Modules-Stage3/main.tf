@@ -11,7 +11,6 @@ module "compute" {
   public_subnet       = module.networking.aws_public_subnet
   user_data           = file("./userdata.tpl")
   key_name            = var.key_name
-  public_key_path     = var.public_key_path
   tg_port             = 80
   lb_target_group_arn = module.loadbalancing.lb_target_group_arn
 }
@@ -27,18 +26,18 @@ module "networking" {
 }
 
 module "loadbalancing" {
-  source         = "./modules/loadbalancing"
-  public_subnets = module.networking.aws_public_subnet
-  tg_port        = 80
-  tg_protocol    = "HTTP"
-  vpc_id         = module.networking.vpc_id
-  #listener_port     = 80
-  listener_protocol = "HTTP"
-  security_groups   = module.security.public_ALB
-  #   lb_healthy_thresold    = 2
-  #   lb_unhealthy_threshold = 2
-  #   lb_timeout             = 300
-  #   lb_interval            = 30
+  source                 = "./modules/loadbalancing"
+  public_subnets         = module.networking.aws_public_subnet
+  tg_port                = 80
+  tg_protocol            = "HTTP"
+  vpc_id                 = module.networking.vpc_id
+  listener_port          = 80
+  listener_protocol      = "HTTP"
+  security_groups        = module.security.public_ALB
+  lb_healthy_threshold   = 2
+  lb_unhealthy_threshold = 2
+  lb_timeout             = 20
+  lb_interval            = 30
 }
 
 module "database" {
@@ -47,9 +46,9 @@ module "database" {
   engine               = var.rds_engine
   engine_version       = var.rds_engine_version
   instance_class       = var.rds_instance_class
-  db_name              = "Flintlock"
-  username             = "Flintlock"
-  password             = "Flintlock"
+  db_name              = var.rds_name
+  username             = var.rds_username
+  password             = var.rds_password
   parameter_group_name = var.rds_parameter_group_name
   security_groups      = module.security.private_database_sg
   subnet_ids           = module.networking.aws_private_subnet

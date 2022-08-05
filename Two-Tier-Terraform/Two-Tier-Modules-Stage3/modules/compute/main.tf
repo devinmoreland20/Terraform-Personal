@@ -1,11 +1,5 @@
 #------ module/compute/main.tf
 
-resource "aws_key_pair" "key_pair" {
-  key_name   = var.key_name
-  public_key = file(var.public_key_path)
-}
-
-
 resource "aws_instance" "project" {
   count                       = var.instance_count
   ami                         = var.ami
@@ -14,14 +8,12 @@ resource "aws_instance" "project" {
   subnet_id                   = var.public_subnet[count.index]
   associate_public_ip_address = true
   user_data                   = var.user_data
-  key_name                    = aws_key_pair.key_pair.key_name
+  key_name                    = var.key_name
 
   tags = {
     Name = "project public instance ${count.index}"
   }
 }
-
-
 
 resource "aws_lb_target_group_attachment" "project" {
   count            = var.instance_count
@@ -38,6 +30,10 @@ resource "aws_instance" "bastion" {
   subnet_id                   = var.public_subnet[count.index]
   associate_public_ip_address = true
   user_data                   = var.user_data
-  key_name                    = aws_key_pair.key_pair.key_name
+  key_name                    = var.key_name
+  tags = {
+    Name = "project Bastion instance ${count.index}"
+  }
 }
+
 

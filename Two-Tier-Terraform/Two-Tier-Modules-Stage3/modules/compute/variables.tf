@@ -10,5 +10,5 @@ variable "user_data" {}
 variable "key_name" {}
 variable "tg_port" {}
 variable "lb_target_group_arn" {}
-variable "public_key_path" {}
+
 

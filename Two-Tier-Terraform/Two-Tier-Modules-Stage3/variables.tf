@@ -14,10 +14,7 @@ variable "instance_type" {
 }
 
 variable "key_name" {
-  default = "tfkey.pub"
-}
-variable "public_key_path" {
-  default = "/Users/devin/.ssh/tfkey.pub"
+  default = "Mac"
 }
 
 variable "public_access_cidr" {
@@ -25,7 +22,7 @@ variable "public_access_cidr" {
 }
 
 variable "local_IP" {
-  default = "23.226.175.132/32"
+  type = string
 }
 
 variable "rds_engine" {
@@ -45,7 +42,7 @@ variable "rds_username" {
 }
 
 variable "rds_password" {
-  default = "foobar0223"
+  type = string
 }
 
 variable "rds_parameter_group_name" {
