@@ -25,7 +25,7 @@ variable "public_access_cidr" {
 }
 
 variable "local_IP" {
-  default = "76.177.24.199/32"
+  default = "23.226.175.132/32"
 }
 
 variable "rds_engine" {

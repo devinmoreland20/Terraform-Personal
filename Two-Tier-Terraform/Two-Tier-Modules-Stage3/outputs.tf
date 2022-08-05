@@ -10,3 +10,12 @@ output "ALB_DNS" {
   value       = module.loadbalancing
 }
 
+output "BastionIP" {
+  description = "Public IP of Bastion instance"
+  value       = module.compute.instance_bastion_ip
+}
+
+output "privateIP" {
+  description = "private IP of EC2 instance"
+  value       = module.compute.instance_private_ip
+}

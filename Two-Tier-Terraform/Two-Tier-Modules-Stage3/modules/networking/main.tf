@@ -65,5 +65,17 @@ resource "aws_route_table" "public_project_route_table" {
   }
 }
 
+resource "aws_route_table_association" "public" {
+  count          = var.public_sn_count
+  subnet_id      = aws_subnet.public_project_subnet[count.index].id
+  route_table_id = aws_route_table.public_project_route_table.id
+}
+
+resource "aws_route_table_association" "default" {
+  count          = var.private_sn_count
+  subnet_id      = aws_subnet.private_project_subnet[count.index].id
+  route_table_id = aws_default_route_table.internal_project_default.id
+}
+
 
 
